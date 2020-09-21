@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Billy</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1 class="title1">Kenniskaart Aanmaken</h1>
+        <div class="template_blok">
+            <form action="data_Frontend.php" method="post">
+                <label class="label" for = "titel">Titel:</label>
+                <input class="invulveld" type = "text" name="titel">
+                <label class="label"for = "wat">Wat:</label>
+                <input class="invulveld" type = "text" name="wat">
+                <label class="label"for = "wie">Wie:</label>
+                <input class="invulveld" type = "text" name = "wie">
+                <label class="label"class="label"for = "hoe">Hoe:</label>
+                <input class="invulveld" type = "text" name = "hoe">
+                <label class="label"for = "waarom">Waarom:</label>
+                <input class="invulveld" type = "text" name = "waarom">
+                <label class="label"for = "niveau">Niveau:</label><br>
+                <div class="check_block">
+                    <input class="invulbox" type = "checkbox" id="niveau1" name = "niveau" value="beginner">
+                    <label class="checkbox"for ="niveau1">Beginner</label><br>
+                    <input class="invulbox" type = "checkbox" id="niveau2" name = "niveau" value="Gevorderde">
+                    <label class="checkbox"for ="niveau2">Gevorderde</label><br>
+                    <input class="invulbox" type = "checkbox" id="niveau3" name = "niveau" value="Expert">
+                    <label class="checkbox"for ="niveau3">Expert</label><br>
+                </div><br>
+                <label class="label"for = "rol">Rol:</label><br>
+                <div class="check_block">
+                    <input class="invulbox2" type = "checkbox" id="rol1" name = "rol" value="FE">
+                    <label class="checkbox2"for ="niveau1">FE</label><br>
+                    <input class="invulbox2" type = "checkbox" id="rol2" name = "rol" value="BE">
+                    <label class="checkbox2"for ="niveau2">BE</label><br>
+                    <input class="invulbox2" type = "checkbox" id="rol3" name = "rol" value="AI">
+                    <label class="checkbox2"for ="niveau3">AI</label><br>
+                    <input class="invulbox2" type = "checkbox" id="rol4" name = "rol" value="PO">
+                    <label class="checkbox2"for ="niveau1">PO</label><br>
+                    <input class="invulbox2" type = "checkbox" id="rol5" name = "rol" value="CSC">
+                    <label class="checkbox2"for ="niveau2">CSC</label><br>
+                </div><br>
+                <label class="label"for = "onderwerp">Onderwerp:</label>
+                <input class="invulveld" type = "text" name = "onderwerp">
+                <label class="label"for = "bronnen">Bronnen:</label>
+                <input class="invulveld" type = "text" name = "bronnen">
+                <input class="button2" type = "submit" name="opslaan" onclick="alert('Kenniskaart is opgeslagen')"/>
+            </form>
+        </div>
+    </body>
+</html>
