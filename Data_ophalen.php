@@ -51,14 +51,15 @@ class Connection {
      * @return array
      */
     public function all_naam() {
-        $stmt = $this->pdo->query('SELECT titel, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
+        $stmt = $this->pdo->query('SELECT kenniskaart_id, titel, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
                 . 'FROM sch_kennis.kenniskaart '
-                . 'ORDER BY titel');
+                . 'ORDER BY kenniskaarT_id');
 
         $kaart = [];
 
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $kaart[] = [
+                'kenniskaart_id' => $row['kenniskaart_id'],
                 'titel' => $row['titel'],
                 'wat' => $row['wat'],
                 'auteur' => $row['auteur'],
@@ -75,8 +76,9 @@ class Connection {
 }
 
 # legt een connectie neer en export data van de database
-if (isset($_POST['titel']) and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
+if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
 
+    $kenniskaart_id = $row['kenniskaart_id'];
     $titel = $_POST['titel'];
     $wat = $_POST['wat'];
     $auteur = $_POST['auteur'];
@@ -123,7 +125,7 @@ catch (PDOException $e){
 }
 }
 
-    $sql_get_kaart = "SELECT titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart order by titel;";
+    $sql_get_kaart = "SELECT kenniskaart_id, titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1 order by titel;";
 
 try {
 	$pdo = Connection::get()->connect();
@@ -139,23 +141,25 @@ try {
 	echo $e->getMessage();
 }
 
-$sql = "SELECT titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart" ; 
+$sql = "SELECT kenniskaart_id, titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1" ; 
 $sql_result = sql_execute($sql,1) ;
 foreach ($sql_result as $row) { 
     // FORMFIELDS SET
-    $titel= $row[0];
+    $kenniskaart_id= $row[0];
+    $titel= $row[1];
     $wat= $row[0];
     $auteur= $row[0];
     $hoe= ($row[0]);
     $waarom= $row[0];
-    $niveau= $row[5];
-    $rol= $row[0];
+    $niveau= $row[6];
+    $rol= $row[7];
     $onderwerp= $row[0];
     $bronnen= $row[0];
     }
 
 ?>
 
+<!DOCTYPE html>
 <html lang="nl">
     <head>
         <meta charset="UTF-8">
@@ -180,7 +184,7 @@ foreach ($sql_result as $row) {
                     <td><?php echo $niveau ?></td>
                 </tr>
             </table>
-                <ul>Rol: Product Owner, Front-End</ul>
+                <ul>Rol: <?php echo $rol ?></ul>
                 <ul>Onderwerp: Gebruikersinteractie analyseren etc.</ul>
                 <span class="horizontal-line-small"></span> 
             </div>
