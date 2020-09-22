@@ -51,9 +51,9 @@ class Connection {
      * @return array
      */
     public function all_naam() {
-        $stmt = $this->pdo->query('SELECT kenniskaart_id, titel, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
+        $stmt = $this->pdo->query('SELECT kenniskaart_id, titel, datum, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
                 . 'FROM sch_kennis.kenniskaart '
-                . 'ORDER BY kenniskaarT_id');
+                . 'ORDER BY kenniskaart_id');
 
         $kaart = [];
 
@@ -61,6 +61,7 @@ class Connection {
             $kaart[] = [
                 'kenniskaart_id' => $row['kenniskaart_id'],
                 'titel' => $row['titel'],
+                'datum' => $row['datum'],
                 'wat' => $row['wat'],
                 'auteur' => $row['auteur'],
                 'hoe' => $row['hoe'],
@@ -76,10 +77,11 @@ class Connection {
 }
 
 # legt een connectie neer en export data van de database
-if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
+if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['datum'] and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
 
     $kenniskaart_id = $row['kenniskaart_id'];
     $titel = $_POST['titel'];
+    $datum = $_POST['datum'];
     $wat = $_POST['wat'];
     $auteur = $_POST['auteur'];
     $hoe = $_POST['hoe'];
@@ -113,7 +115,7 @@ if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['wat'] and $_
 try {
 	$pdo = Connection::get()->connect();
     // 
-    $sql_insert_naam = "INSERT INTO sch_kennis.kenniskaart(titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen) VALUES ('$_POST[titel]', '$_POST[wat]', '$_POST[auteur]', '$_POST[hoe]', '$_POST[waarom]', '$chk', '$rol', '$onderwerp', '$_POST[bronnen]')";
+    $sql_insert_naam = "INSERT INTO sch_kennis.kenniskaart(titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen) VALUES ('$_POST[titel]', '$_POST[datum]', '$_POST[wat]', '$_POST[auteur]', '$_POST[hoe]', '$_POST[waarom]', '$chk', '$rol', '$onderwerp', '$_POST[bronnen]')";
     $stmt = $pdo->query($sql_insert_naam);
 
  if($stmt === false){
@@ -125,7 +127,7 @@ catch (PDOException $e){
 }
 }
 
-    $sql_get_kaart = "SELECT kenniskaart_id, titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1 order by titel;";
+    $sql_get_kaart = "SELECT kenniskaart_id, titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1 order by titel;";
 
 try {
 	$pdo = Connection::get()->connect();
@@ -141,20 +143,21 @@ try {
 	echo $e->getMessage();
 }
 
-$sql = "SELECT kenniskaart_id, titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1" ; 
+$sql = "SELECT kenniskaart_id, titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1" ; 
 $sql_result = sql_execute($sql,1) ;
 foreach ($sql_result as $row) { 
     // FORMFIELDS SET
     $kenniskaart_id= $row[0];
     $titel= $row[1];
-    $wat= $row[0];
-    $auteur= $row[0];
-    $hoe= ($row[0]);
-    $waarom= $row[0];
-    $niveau= $row[6];
-    $rol= $row[7];
-    $onderwerp= $row[0];
-    $bronnen= $row[0];
+    $datum= $row[2];
+    $wat= $row[3];
+    $auteur= $row[4];
+    $hoe= ($row[5]);
+    $waarom= $row[6];
+    $niveau= $row[7];
+    $rol= $row[8];
+    $onderwerp= $row[9];
+    $bronnen= $row[10];
     }
 
 ?>
@@ -170,28 +173,19 @@ foreach ($sql_result as $row) {
 
     <body>
         <div class="text" id="kaart-title">
-            <table>
-                <tr>
-                    <td><?php echo $titel ?></td>
-                </tr>
-            </table>
+            <ul><?php echo $titel ?></ul>
         </div>
 
         <div class="text" id="selections">
             <div class="text" id="niv-rol-sub">
-            <table>
-                <tr>Niveau:
-                    <td><?php echo $niveau ?></td>
-                </tr>
-            </table>
+                <ul>Niveau: <?php echo $niveau ?></ul>
                 <ul>Rol: <?php echo $rol ?></ul>
-                <ul>Onderwerp: Gebruikersinteractie analyseren etc.</ul>
+                <ul>Onderwerp: <?php echo $onderwerp ?></ul>
                 <span class="horizontal-line-small"></span> 
             </div>
             <div class="text" id="aut-dat-edit">
-                <ul>Auteur: Gert van Hardeveld</ul>
-                <ul>Datum van uitgave: 23-08-2019</ul>
-                <ul>Laatst bewerkt: 19-09-2020</ul>
+                <ul>Auteur: <?php echo $auteur ?></ul>
+                <ul>Datum van uitgave: <?php echo $datum ?></ul>
                 <span class="horizontal-line"></span> 
             </div>
         </div>
@@ -201,47 +195,24 @@ foreach ($sql_result as $row) {
             <div class="text" id="box-title">
                 <p>Wat is het?</p>
                 <div class="text" id="box-text">
-                    <ul>Aqui blaborerrum suscili beaque optatur, 
-                        ommolo volorerspe excest quae sed excea sed el magnimus expe sum ut eat voloribus, 
-                        que paria dolenis ciditetur aut acepedis provit ea plicti quatur, 
-                        intios porpor auda iur aut ipsum que cum fugiam et omnia voles iliciet volliquam ad 
-                        exerrum in pore net pera dolectem ut ipsam re, simpe sunt volorit quo dus ra natate 
-                        nimporest officate erspid quiatiant labo. Nequia aut landa vel maio. Cus accae. Quiam, 
-                        quam fugias el ipic to dunt quati nonse sedit el estemque nonecus aperia derferumetus 
-                        nonsequid et atiaepre molorit veles ut aut il iur solecta sperum est ut faceperi sum, 
-                        tet quodis quam vollumquis nim facero vel imagnihilit vellia consequo quiatur, volupta
-                        quodigento de cone
+                    <ul><?php echo $wat ?>
                     </ul>
                 </div>
 
         <div class="text" id="box-title">
             <p>Waarvoor wordt het gebruikt?</p>
             <div class="text" id="box-text">
-                <ul>Aqui blaborerrum suscili beaque optatur, 
-                ommolo volorerspe excest quae sed excea sed el magnimus expe sum ut eat voloribus, 
-                que paria dolenis ciditetur aut acepedis provit ea plicti quatur, 
-                intios porpor auda iur aut ipsum que cum fugiam et omnia voles iliciet volliquam ad 
-                exerrum in pore net pera dolectem ut ipsam re, simpe sunt volorit quo dus ra natate 
-                nimporest officate erspid quiatiant labo. Nequia aut landa vel maio. Cus accae. Quiam, 
-                quam fugias el ipic to dunt quati nonse sedit el estemque nonecus aperia derferumetus 
-                nonsequid et atiaepre molorit veles ut aut il iur solecta sperum est ut faceperi sum, 
-                tet quodis quam vollumquis nim facero vel imagnihilit vellia consequo quiatur, volupta
-                quodigento de cone  </ul>
+                <ul>
+                    <?php echo $waarom ?>
+                </ul>
             </div>
 
         <div class="text" id="box-title">
             <p>Hoe wordt het toegepast?</p>
             <div class="text" id="box-text">
-                <ul>Aqui blaborerrum suscili beaque optatur, 
-                ommolo volorerspe excest quae sed excea sed el magnimus expe sum ut eat voloribus, 
-                que paria dolenis ciditetur aut acepedis provit ea plicti quatur, 
-                intios porpor auda iur aut ipsum que cum fugiam et omnia voles iliciet volliquam ad 
-                exerrum in pore net pera dolectem ut ipsam re, simpe sunt volorit quo dus ra natate 
-                nimporest officate erspid quiatiant labo. Nequia aut landa vel maio. Cus accae. Quiam, 
-                quam fugias el ipic to dunt quati nonse sedit el estemque nonecus aperia derferumetus 
-                nonsequid et atiaepre molorit veles ut aut il iur solecta sperum est ut faceperi sum, 
-                tet quodis quam vollumquis nim facero vel imagnihilit vellia consequo quiatur, volupta
-                quodigento de cone  </ul>
+                <ul>
+                    <?php echo $hoe ?>
+                </ul>
             </div>  
         </div>
 

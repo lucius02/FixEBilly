@@ -50,13 +50,14 @@ class Connection {
      * @return array
      */
     public function all_naam() {
-        $stmt = $this->pdo->query('SELECT titel, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
+        $stmt = $this->pdo->query('SELECT titel, datum, wat, wie, hoe, waarom, niveau, rol, onderwerp, bronnen'
                 . 'FROM sch_kennis.kenniskaart '
                 . 'ORDER BY titel');
         $kaart = [];
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $kaart[] = [
                 'titel' => $row['titel'],
+                'datum' => $row['datum'],
                 'wat' => $row['wat'],
                 'auteur' => $row['auteur'],
                 'hoe' => $row['hoe'],
@@ -71,7 +72,7 @@ class Connection {
     }
 }
 
-if (isset($_POST['titel']) and $_POST['wat'] <> '' and $_POST['auteur'] <> '' and $_POST['hoe'] <> '' and $_POST['waarom'] <> '' and $_POST['niveau'] <> '' and $_POST['rol'] <> '' and $_POST['onderwerp'] <> '' and $_POST['bronnen'] <> '') {
+if (isset($_POST['titel']) and $_POST['datum'] <> '' and $_POST['wat'] <> '' and $_POST['auteur'] <> '' and $_POST['hoe'] <> '' and $_POST['waarom'] <> '' and $_POST['niveau'] <> '' and $_POST['rol'] <> '' and $_POST['onderwerp'] <> '' and $_POST['bronnen'] <> '') {
 
     $checkbox1=$_POST['niveau'];
     $chk="";  
@@ -97,7 +98,7 @@ if (isset($_POST['titel']) and $_POST['wat'] <> '' and $_POST['auteur'] <> '' an
 try {
 	$pdo = Connection::get()->connect();
     // 
-    $sql_insert_naam = "INSERT INTO sch_kennis.kenniskaart(titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen) VALUES ('$_POST[titel]', '$_POST[wat]', '$_POST[auteur]', '$_POST[hoe]', '$_POST[waarom]', '$chk', '$rol', '$onderwerp', '$_POST[bronnen]')";
+    $sql_insert_naam = "INSERT INTO sch_kennis.kenniskaart(titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen) VALUES ('$_POST[titel]', '$_POST[datum]', '$_POST[wat]', '$_POST[auteur]', '$_POST[hoe]', '$_POST[waarom]', '$chk', '$rol', '$onderwerp', '$_POST[bronnen]')";
     $stmt = $pdo->query($sql_insert_naam);
 
  if($stmt === false){
@@ -109,7 +110,7 @@ catch (PDOException $e){
 }
 }
 
-$sql_get_kaart = "SELECT titel, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart ORDER BY titel;";
+$sql_get_kaart = "SELECT titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart ORDER BY titel;";
 
 try {
 	$pdo = Connection::get()->connect();
@@ -138,8 +139,10 @@ try {
         <h1 class="title1">Kenniskaart Aanmaken</h1><br>
         <div class="template_blok">
             <form action="data_Frontend.php" method="post">
-                <label class="label" for = "titel">Titel:</label>
+                <label class="label" for="titel">Titel:</label>
                 <textarea class="invulveld" id="titel" name="titel" required></textarea>
+                <label class="label" for="datum">Datum:</label>
+                <input class="invulveld" id="datum" type="date" name="datum" required></input>
                 <label class="label"for = "wat">Wat:</label>
                 <textarea class="invulveld" id="wat" name="wat" required></textarea>
                 <label class="label"for = "auteur">Auteur:</label>
@@ -177,55 +180,55 @@ try {
                 </div><br>
                 <label class="label"for = "onderwerp">Onderwerp:</label><br>
                 <div class="ow_block" required>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp1" name="onderwerp[]" value="GAn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp1" name="onderwerp[]" value="Gebruikersinteractie Analyseren">
                     <label class="checkbox3" for ="onderwerp1">Gebruikersinteractie Analyseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp2" name="onderwerp[]" value="Gad">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp2" name="onderwerp[]" value="Gebruikersinteractie Adviseren">
                     <label class="checkbox3" for ="onderwerp2">Gebruikersinteractie Adviseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp3" name="onderwerp[]" value="Gon">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp3" name="onderwerp[]" value="Gebruikersinteractie Ontwerpen">
                     <label class="checkbox3" for ="onderwerp3">Gebruikersinteractie Ontwerpen</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp4" name="onderwerp[]" value="Gre">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp4" name="onderwerp[]" value="Gebruikersinteractie Realiseren">
                     <label class="checkbox3" for ="onderwerp4">Gebruikersinteractie Realiseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp5" name="onderwerp[]" value="GMe&co">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp5" name="onderwerp[]" value="Gebruikersinteractie Manage & control">
                     <label class="checkbox3" for ="onderwerp5">Gebruikersinteractie Manage & control</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp6" name="onderwerp[]" value="OrAn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp6" name="onderwerp[]" value="Organisatieprocessen Analyseren">
                     <label class="checkbox3" for ="onderwerp6">Organisatieprocessen Analyseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp7" name="onderwerp[]" value="OrAd">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp7" name="onderwerp[]" value="Organisatieprocessen Adviseren">
                     <label class="checkbox3" for ="onderwerp7">Organisatieprocessen Adviseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp8" name="onderwerp[]" value="OrOn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp8" name="onderwerp[]" value="Organisatieprocessen Ontwerpen">
                     <label class="checkbox3" for ="onderwerp8">Organisatieprocessen Ontwerpen</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp9" name="onderwerp[]" value="OrRe">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp9" name="onderwerp[]" value="Organisatieprocessen Realiseren">
                     <label class="checkbox3" for ="onderwerp9">Organisatieprocessen Realiseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp10" name="onderwerp[]" value="OrMa&Co">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp10" name="onderwerp[]" value="Organisatieprocessen Manage & control">
                     <label class="checkbox3" for ="onderwerp10">Organisatieprocessen Manage & control</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp11" name="onderwerp[]" value="InAn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp11" name="onderwerp[]" value="Infrastructuur Analyseren">
                     <label class="checkbox3" for ="onderwerp11">Infrastructuur Analyseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp12" name="onderwerp[]" value="InAd">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp12" name="onderwerp[]" value="Infrastructuur Adviseren">
                     <label class="checkbox3" for ="onderwerp12">Infrastructuur Adviseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp13" name="onderwerp[]" value="InOn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp13" name="onderwerp[]" value="Infrastructuur Ontwerpen">
                     <label class="checkbox3" for ="onderwerp13">Infrastructuur Ontwerpen</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp14" name="onderwerp[]" value="InRe">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp14" name="onderwerp[]" value="Infrastructuur Realiseren">
                     <label class="checkbox3" for ="onderwerp14">Infrastructuur Realiseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp15" name="onderwerp[]" value="InMa&Co">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp15" name="onderwerp[]" value="Infrastructuur Manage & control">
                     <label class="checkbox3" for ="onderwerp15">Infrastructuur Manage & control</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp16" name="onderwerp[]" value="SoAn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp16" name="onderwerp[]" value="Software Analyseren">
                     <label class="checkbox3" for ="onderwerp16">Software Analyseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp17" name="onderwerp[]" value="SoAd">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp17" name="onderwerp[]" value="Software Adviseren">
                     <label class="checkbox3" for ="onderwerp17">Software Adviseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp18" name="onderwerp[]" value="SoOn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp18" name="onderwerp[]" value="Software Ontwerpen">
                     <label class="checkbox3" for ="onderwerp18">Software Ontwerpen</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp19" name="onderwerp[]" value="SoRe">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp19" name="onderwerp[]" value="Software Realiseren">
                     <label class="checkbox3" for ="onderwerp19">Software Realiseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp20" name="onderwerp[]" value="SoMa&Co">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp20" name="onderwerp[]" value="Software Manage & control">
                     <label class="checkbox3" for ="onderwerp20">Software Manage & control</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp21" name="onderwerp[]" value="HiAn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp21" name="onderwerp[]" value="Hardware interfacing Analyseren">
                     <label class="checkbox3" for ="onderwerp21">Hardware interfacing Analyseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp22" name="onderwerp[]" value="HiAd">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp22" name="onderwerp[]" value="Hardware interfacing Adviseren">
                     <label class="checkbox3" for ="onderwerp22">Hardware interfacing Adviseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp23" name="onderwerp[]" value="HiOn">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp23" name="onderwerp[]" value="Hardware interfacing Ontwerpen">
                     <label class="checkbox3" for ="onderwerp23">Hardware interfacing Ontwerpen</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp24" name="onderwerp[]" value="HiRe">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp24" name="onderwerp[]" value="Hardware interfacing Realiseren">
                     <label class="checkbox3" for ="onderwerp24">Hardware interfacing Realiseren</label><br>
-                    <input class="invulbox3" type = "checkbox" id="onderwerp25" name="onderwerp[]" value="HiMa&Co">
+                    <input class="invulbox3" type = "checkbox" id="onderwerp25" name="onderwerp[]" value="Hardware interfacing Manage & control">
                     <label class="checkbox3" for ="onderwerp25">Hardware interfacing Manage & control</label><br>
                 </div><br>
                 <label class="label"for = "bronnen">Bronnen:</label>
