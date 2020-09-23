@@ -79,7 +79,7 @@ class Connection {
 # legt een connectie neer en export data van de database
 if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['datum'] and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
 
-    $kenniskaart_id = $row['kenniskaart_id'];
+    $kenniskaart_id = $_POST['kenniskaart_id'];
     $titel = $_POST['titel'];
     $datum = $_POST['datum'];
     $wat = $_POST['wat'];

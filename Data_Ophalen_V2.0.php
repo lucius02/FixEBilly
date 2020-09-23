@@ -90,7 +90,6 @@ if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['datum'] and 
     $rol = $_post['rol'];
     $onderwerp = $_post['onderwerp'];
     $bronnen = $_post['bronnen'];
-
 }
 
 $sql = "SELECT kenniskaart_id, titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1" ; 
