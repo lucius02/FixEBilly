@@ -190,7 +190,6 @@ foreach ($sql_result as $row) {
             </div>
         </div>
 
-
         <div class="text" id="info">
             <div class="text" id="box-title">
                 <p>Wat is het?</p>
