@@ -108,4 +108,5 @@ foreach ($sql_result as $row) {
     $onderwerp= $row[9];
     $bronnen= $row[10];
     }
+
 ?>
