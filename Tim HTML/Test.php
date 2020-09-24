@@ -1,4 +1,4 @@
-<?php
+<?php 
 include("ini/functie.inc");
 class Connection {
  
@@ -16,7 +16,7 @@ class Connection {
     public function connect() {
  
         // read parameters in the ini configuration file
-        $params = parse_ini_file('.\database_2.ini');
+        $params = parse_ini_file('.\ini\database_2.ini');
         if ($params === false) {
             throw new \Exception("Error reading database configuration file");
         }
@@ -76,7 +76,8 @@ class Connection {
     }
 }
 
-# legt een connectie neer en export data van de database
+
+
 if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['datum'] and $_POST['wat'] and $_POST['auteur'] and $_POST['hoe'] and $_POST['waarom'] and $_POST['niveau'] and $_POST['rol'] and $_POST['onderwerp'] and $_POST['bronnen']) {
 
     $kenniskaart_id = $_POST['kenniskaart_id'];
@@ -90,6 +91,7 @@ if (isset($_POST['titel']) and $_POST['kenniskaart_id'] and $_POST['datum'] and 
     $rol = $_post['rol'];
     $onderwerp = $_post['onderwerp'];
     $bronnen = $_post['bronnen'];
+
 }
 
 $sql = "SELECT kenniskaart_id, titel, datum, wat, auteur, hoe, waarom, niveau, rol, onderwerp, bronnen FROM sch_kennis.kenniskaart where kenniskaart_id = 1" ; 
@@ -108,4 +110,6 @@ foreach ($sql_result as $row) {
     $onderwerp= $row[9];
     $bronnen= $row[10];
     }
+
+    echo json_encode($titel);
 ?>
