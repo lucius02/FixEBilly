@@ -1,0 +1,16 @@
+[
+    {
+        "kenniskaart_id": "1",
+        "onderwerp": "Design thinking",
+        "rol": "FE, PO",
+        "competentie": "Gebruikersinteractie Adviseren",
+        "wat": "wat1",
+        "why": "why1",
+        "how": "how1",
+        "plaatje": "plaatje1",
+        "bronnen": "bronnen1",
+        "niveau": "beginner",
+        "studieduur": "30 minuten",
+        "rating": "3"
+    }
+]
