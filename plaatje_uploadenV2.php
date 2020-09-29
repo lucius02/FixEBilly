@@ -38,7 +38,7 @@ if(isset($_POST['plaatje'])){
  $result = pg_query($con,$sql);
  $row = pg_fetch_array($result);
 
- $image_src2 = $row['plaatje'];
+ $image_src = $row['plaatje'];
  
 ?>
 <img src='<?php echo $image_src; ?>' >
