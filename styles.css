@@ -89,7 +89,22 @@ background-color: lightcoral;
 .check_block {
     display: inline-block;
     width: 700px;
-    height: 100px;
+    height: 110px;
+    background-color: lightgoldenrodyellow;
+    margin: 5px;
+    position: relative;
+    top: 00px;
+    left: 48px;
+    border-width: 2px;
+    border-style: inset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+    border-image: initial;
+}
+
+.niveau_block {
+    display: inline-block;
+    width: 700px;
+    height: 80px;
     background-color: lightgoldenrodyellow;
     margin: 5px;
     position: relative;
