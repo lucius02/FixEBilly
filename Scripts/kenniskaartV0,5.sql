@@ -11,7 +11,7 @@ plaatje varchar not null,
 bronnen varchar not null,
 niveau varchar not null,
 studieduur varchar not null,
-rating int not null
+rating varchar not null
 );
 
 insert into sch_map.kenniskaart (onderwerp, rol, competentie, wat, why, how, plaatje, bronnen, niveau, studieduur, rating)

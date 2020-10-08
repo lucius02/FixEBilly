@@ -73,11 +73,7 @@ class Connection {
     }
 }
 
-// 
-if ( 
-    isset($_POST['opslaan']) 
-    and $_FILES['plaatje']['name'] <> '' and $_POST['rol'] <> '' and $_POST['onderwerp'] <> '' and $_POST['competentie'] <> '' and $_POST['wat'] <> '' and $_POST['why'] <> '' and $_POST['how'] <> ''  and $_POST['bronnen'] <> '' and $_POST['niveau'] <> '' and $_POST['studieduur'] <> '' and $_POST['rating'] <> ''
-    ) {
+if (isset($_POST['onderwerp']) and $_POST['rol'] <> '' and $_POST['competentie'] <> '' and $_POST['wat'] <> '' and $_POST['why'] <> '' and $_POST['how'] <> '' and $_POST['plaatje'] <> '' and $_POST['bronnen'] <> '' and $_POST['niveau'] <> '' and $_POST['studieduur'] <> '' and $_POST['rating'] <> '') {
 
     $checkbox1=$_POST['niveau'];
     $chk="";  
@@ -94,15 +90,15 @@ if (
    } 
 
    $checkbox3=$_POST['competentie'];
-    $competentie="";  
+    $onderwerp="";  
     foreach($checkbox3 as $competentie1)  
    {  
       $competentie .= $competentie1.",";  
    } 
 
-   $name = $_FILES['plaatje']['name'];
+   $name = $_FILES['file']['name'];
   $target_dir = "upload/";
-  $target_file = $target_dir . basename($_FILES["plaatje"]["name"]);
+  $target_file = $target_dir . basename($_FILES["file"]["name"]);
 
   // Select file type
   $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -114,7 +110,7 @@ if (
   if( in_array($imageFileType,$extensions_arr) ){
  
     // Convert to base64 
-    $image_base64 = base64_encode(file_get_contents($_FILES['plaatje']['tmp_name']) );
+    $image_base64 = base64_encode(file_get_contents($_FILES['file']['tmp_name']) );
     $image = 'data:image/'.$imageFileType.';base64,'.$image_base64;
   }
 
@@ -122,7 +118,6 @@ try {
 	$pdo = Connection::get()->connect();
     // 
     $sql_insert_naam = "INSERT INTO sch_map.kenniskaart(onderwerp, rol, competentie, wat, why, how, plaatje, bronnen, niveau, studieduur, rating) VALUES ('$_POST[onderwerp]', '$rol', '$competentie', '$_POST[wat]', '$_POST[why]', '$_POST[how]', '$image', '$_POST[bronnen]', '$chk', '$_POST[studieduur]', '$_POST[rating]')";
-    
     $stmt = $pdo->query($sql_insert_naam);
 
  if($stmt === false){
@@ -162,17 +157,17 @@ try {
     <body>
         <h1 class="title1">Kenniskaart Aanmaken</h1><br>
         <div class="template_blok">
-            <form action="data_Frontend.php" enctype="multipart/form-data" method="post">
+            <form action="data_Frontend.php" method="post">
                 <label class="label" for="onderwerp">Onderwerp:</label>
                 <textarea class="invulveld" id="onderwerp" name="onderwerp" required></textarea>
                 <label class="label"for = "wat">Wat:</label>
                 <textarea class="invulveld" id="wat" name="wat" required></textarea>
                 <label class="label"for = "why">Why:</label>
                 <textarea class="invulveld" id="why" name="why" required></textarea>
-                <label class="label"class="label"for = "how">How:</label>
+                <label class="label" for = "how">How:</label>
                 <textarea class="invulveld" id="how" name="how"></textarea>
                 <label class="label"for = "plaatje">Plaatje:</label>
-                <input class="invulveld" type="file" name="plaatje" required />
+                <input class="invulveld" type='file' name='file' id="plaatje" enctype='multipart/form-data' required></input>
                 <label class="label"for = "niveau">Niveau:</label><br>
                 <div class="niveau_block" required>
                     <input class="invulbox" type = "checkbox" id="niveau1" name = "niveau[]" value="beginner">
@@ -257,10 +252,10 @@ try {
                 </div><br>
                 <label class="label"for = "bronnen">Bronnen:</label>
                 <textarea class="invulveld" id="bronnen" name="bronnen" required></textarea>
-                <label class="label"for = "studieduur">Studieduur:</label>
-                <textarea class="invulveld" id="studieduur" name="studieduur" required></textarea>
-                <label class="label"for = "rating">Rating:</label>
-                <textarea class="invulveld" id="rating" name="rating" required></textarea>
+                <label class="label"for = "Studieduur">Studieduur:</label>
+                <textarea class="invulveld" id="Studieduur" name="Studieduur" required></textarea>
+                <label class="label"for = "Rating">Rating:</label>
+                <textarea class="invulveld" id="Rating" name="Rating" required></textarea>
                 <input class="button2" type = "submit" name="opslaan" onclick="alert('Kenniskaart is opgeslagen')"/>
             </form>
         </div>
