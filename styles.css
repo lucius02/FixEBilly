@@ -88,13 +88,13 @@ background-color: lightcoral;
 
 .check_block {
     display: inline-block;
-    width: 700px;
+    width: 696px;
     height: 110px;
     background-color: lightgoldenrodyellow;
     margin: 5px;
     position: relative;
     top: 00px;
-    left: 48px;
+    left: 45px;
     border-width: 2px;
     border-style: inset;
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
@@ -103,13 +103,13 @@ background-color: lightcoral;
 
 .niveau_block {
     display: inline-block;
-    width: 700px;
+    width: 696px;
     height: 80px;
     background-color: lightgoldenrodyellow;
     margin: 5px;
     position: relative;
     top: 00px;
-    left: 48px;
+    left: 45px;
     border-width: 2px;
     border-style: inset;
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));

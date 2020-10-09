@@ -11,7 +11,7 @@ plaatje varchar not null,
 bronnen varchar not null,
 niveau varchar not null,
 studieduur varchar not null,
-rating varchar not null
+rating varchar null
 );
 
 insert into sch_map.kenniskaart (onderwerp, rol, competentie, wat, why, how, plaatje, bronnen, niveau, studieduur, rating)
@@ -24,3 +24,4 @@ create table if not exists sch_map.test (
 test_id serial primary key not null,
 plaatje varchar not null
 );
+

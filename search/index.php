@@ -5,13 +5,15 @@
 	
 	$onderwerp = "";
 	$wat = "";	
+	$why = "";
+	$how = "";
 
 	$queryCondition = "";
 	if(!empty($_POST["search"])) {
 		foreach($_POST["search"] as $k=>$v){
 			if(!empty($v)) {
 
-				$queryCases = array("onderwerp","wat");
+				$queryCases = array("onderwerp","wat", "why", "how");
 				if(in_array($k,$queryCases)) {
 					if(!empty($queryCondition)) {
 						$queryCondition .= " AND ";
@@ -27,6 +29,14 @@
 					case "wat":
 						$wat = $v;
 						$queryCondition .= "wat LIKE '" . $v . "%'";
+						break;
+					case "why":
+						$why = $v;
+						$queryCondition .= "why LIKE '" . $v . "%'";
+						break;
+					case "how":
+						$how = $v;
+						$queryCondition .= "how LIKE '" . $v . "%'";
 						break;
 				}
 			}
@@ -65,6 +75,8 @@
 				<p>
 					<input type="text" placeholder="onderwerp" name="search[onderwerp]" class="demoInputBox" value="<?php echo $onderwerp; ?>"/>
 					<input type="text" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
+					<input type="text" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
+					<input type="text" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
 					<input type="submit" name="go" class="btnSearch" value="Search">
 					<input type="reset" class="btnSearch" value="Reset" onclick="window.location='index.php'">
 				</p>
