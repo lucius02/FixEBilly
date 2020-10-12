@@ -178,7 +178,7 @@ try {
                 <input class="invulveld" type="file" name="plaatje" required />
                 <label class="label"for = "niveau">Niveau:</label><br>
                 <div class="niveau_block" required>
-                    <input class="invulbox" type = "checkbox" id="niveau1" name = "niveau[]" value="beginner">
+                    <input class="invulbox" type = "checkbox" id="niveau1" name = "niveau[]" value="Beginner">
                     <label class="checkbox"for ="niveau1">Beginner</label><br>
                     <input class="invulbox" type = "checkbox" id="niveau2" name = "niveau[]" value="Gevorderde">
                     <label class="checkbox"for ="niveau2">Gevorderde</label><br>
