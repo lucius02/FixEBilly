@@ -100,14 +100,14 @@
 					<input type="text" id="mysearch" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
 					<input type="text" id="mysearch" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
 					<input type="text" id="mysearch" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
-					<div>
+					<!-- <div>
 						<select name="niveau[search_in]" id="search_in" class="demoInputBox">
 							<option value="">Select Column</option>
 							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>beginner</option>
 							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Gevorderde</option>
 							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Expert</option>
 						</select>
-					</div>
+					</div> -->
 					<input type="submit" name="go" class="btnSearch" value="Search">
 					<input type="reset" class="btnSearch" value="Reset" onclick="window.location='index.php'">
 				</p>
