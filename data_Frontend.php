@@ -173,7 +173,7 @@ try {
                 <label class="label"for = "why">Why:</label>
                 <textarea class="invulveld" id="why" name="why" required></textarea>
                 <label class="label"class="label"for = "how">How:</label>
-                <textarea class="invulveld" id="how" name="how"></textarea>
+                <textarea class="invulveld" id="how" name="how" required></textarea>
                 <label class="label"for = "plaatje">Plaatje:</label>
                 <input class="invulveld" type="file" name="plaatje" required />
                 <label class="label"for = "niveau">Niveau:</label><br>
