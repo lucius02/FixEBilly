@@ -74,6 +74,9 @@ class Connection {
 }
 
 echo "stap1";
+
+$drivers = PDO::getAvailableDrivers ();
+    echo '<pre>' . print_r ($drivers, true) . '</pre>';
 // 
 if ( 
     isset($_POST['opslaan']) 

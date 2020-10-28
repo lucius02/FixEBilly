@@ -51,19 +51,19 @@
 		}
 	}
 
-	$pdocrud = new PDOCrud();
-	//add Filter ("unique-filter-name", "Filter display name", "column name to be matched","type of filter")
-	$pdocrud->addFilter("product_cat_filter", "Product Category", "product_cat", "radio");
-	//set data for filter ("unique-filter-name",array of data or table,key (if source=db),value (if source=db), "source_type") 
-	$pdocrud->setFilterSource("product_cat_filter", array("Electronic" => "Electronic", "Fashion" => "Fashion"), "", "", "array");
+	// $pdocrud = new PDOCrud();
+	// //add Filter ("unique-filter-name", "Filter display name", "column name to be matched","type of filter")
+	// $pdocrud->addFilter("product_cat_filter", "Product Category", "product_cat", "radio");
+	// //set data for filter ("unique-filter-name",array of data or table,key (if source=db),value (if source=db), "source_type") 
+	// $pdocrud->setFilterSource("product_cat_filter", array("Electronic" => "Electronic", "Fashion" => "Fashion"), "", "", "array");
 	
-	$pdocrud->addFilter("ProductLineFilter", "Product Line", "product_line", "dropdown");
-	$pdocrud->setFilterSource("ProductLineFilter", "products", "product_line", "product_line as pl", "db");
+	// $pdocrud->addFilter("ProductLineFilter", "Product Line", "product_line", "dropdown");
+	// $pdocrud->setFilterSource("ProductLineFilter", "products", "product_line", "product_line as pl", "db");
 	
-	$pdocrud->addFilter("ProductVendorFilter", "Vendor", "ProductVendor", "text");
-	$pdocrud->setFilterSource("ProductVendorFilter", "", "", "", "");
+	// $pdocrud->addFilter("ProductVendorFilter", "Vendor", "ProductVendor", "text");
+	// $pdocrud->setFilterSource("ProductVendorFilter", "", "", "", "");
 	
-	echo $pdocrud->dbTable("products")->render();
+	// echo $pdocrud->dbTable("products")->render();
 
 	$orderby = " ORDER BY kenniskaart_id desc"; 
 	$sql = "SELECT * FROM sch_map.kenniskaart " . $queryCondition;
