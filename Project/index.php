@@ -29,9 +29,7 @@
 	<br><br>
 	<h1><strong>Search/Filter data in php using Ajax</strong></h1>
 	<br>
-	<div class="row">
-		
-			
+	<div class="row">	
 		<form action="index.php" method="post" class="form-horizontal" >
 			<label for="niveau" class="control-label col-sm-3 col-sm-offset-2" >niveau: </label>
 			<div class="col-sm-2" >
@@ -44,7 +42,6 @@
 			</div>
 			<button type="button" name="refresh" id="refresh" class="btn btn-primary">Refresh</button>
 		</form>
-
 	</div>
 	<br><br>
 	<div id="ajaxdata">
