@@ -6,8 +6,6 @@ $onderwerp = "";
 $wat = "";	
 $why = "";
 $how = "";
-$niveau = "";
-
 
 $queryCondition = "";
 if(!empty($_POST["search"])) {
@@ -38,11 +36,10 @@ if(!empty($_POST["search"])) {
                 case "how":
                     $how = $v;
                     $queryCondition .= "how LIKE '" . $v . "%'";
-                    break;
-                case "niveau":
-                        $niveau = $v;
-                        $queryCondition .= "niveau = " . $v;
-                        break;
+					break;
+				case "niveau":
+					$niveau = $v;
+					$queryCondition .= "niveau LIKE '" . $v . "%'";
             }
         }
     }
@@ -50,8 +47,7 @@ if(!empty($_POST["search"])) {
 
     $orderby = " ORDER BY kenniskaart_id desc"; 
 	$sql = "SELECT * FROM sch_map.kenniskaart " . $queryCondition;
-    $href = 'index.php';
-    
+   
     $query =  $sql . $orderby ; 
 	$result = $db_handle->runQuery($query);
 
@@ -72,27 +68,24 @@ if(!empty($_POST["search"])) {
 					<input type="text" id="mysearch" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
 					<input type="text" id="mysearch" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
 					<input type="text" id="mysearch" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
-                    <div class="col-sm-2" >
-                        <select name="niveau[search_in]" class="form-control" id="search_in">
-                            <option>---Select---</option>
-                            <option name="search[niveau]" value="<?php echo $niveau; ?>">Beginner</option>
-                            <option name="search[niveau]" value="Gevorderde">Gevorderde</option>
-                            <option name="search[niveau]" value="Expert">Expert</option>
-                        </select>
-                    </div>
-                    <!-- <div>
-						<select name="niveau[search_in]" id="search_in" class="demoInputBox">
-							<option value="">Select Column</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>beginner</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Gevorderde</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Expert</option>
-						</select>
-					</div>  -->
+
+					<select id="Place" name="search[niveau]" multiple="multiple">
+                        <?php
+                        if (! empty($result)) {
+                            foreach ($result as $k => $v) {
+                                echo '<option value="' . $result[$k]['niveau'] . '">' . $result[$k]['niveau'] . '</option>';
+                            }
+                        }
+                        ?>
+                	</select><br> <br>
+
 					<input type="submit" name="go" class="btnSearch" value="Search">
 					<input type="reset" class="btnSearch" value="Reset" onclick="window.location='filterfunction.php'">
-				</p>
-				</div>
-			
+
+				<?php
+                	if (! empty($_POST['niveau'])) {
+            	?>					
+
 			<table cellpadding="10" cellspacing="1">
 				<thead>
 					<tr>
@@ -110,11 +103,28 @@ if(!empty($_POST["search"])) {
 					</tr>
 				</thead>
 				<tbody>
-					<?php
-					if(!empty($result)) {
-						foreach($result as $k=>$v) {
-						  if(is_numeric($k)) {
+				<?php
+                        $query = "SELECT * from sch_map.kenniskaart";
+                        $i = 0;
+                        $selectedOptionCount = count($_POST['niveau']);
+                        $selectedOption = "";
+                        while ($i < $selectedOptionCount) {
+                            $selectedOption = $selectedOption . "'" . $_POST['niveau'][$i] . "'";
+                            if ($i < $selectedOptionCount - 1) {
+                                $selectedOption = $selectedOption . ", ";
+                            }
+                            
+                            $i ++;
+                        }
+                        $query = $query . " WHERE niveau in (" . $selectedOption . ")";
+                        
+                        $result = $db_handle->runQuery($query);
+                    }
+                    if (! empty($result)) {
+                        foreach ($result as $k => $v) {
+							if(is_numeric($k)) {
 					?>
+
 					<tr>
 						<td><?php echo $result[$k]["onderwerp"]; ?></td>
 						<td><?php echo $result[$k]["rol"]; ?></td>
@@ -128,13 +138,16 @@ if(!empty($_POST["search"])) {
 						<td><?php echo $result[$k]["studieduur"]; ?></td>
 						<td><?php echo $result[$k]["rating"]; ?></td>
 					</tr>
-					<?php
-						  }
-					   }
+
+					<?php	
+						}				   
                     }
 					?>
 				<tbody>
 			</table>
+			<?php
+                }
+            ?> 
 			</form>	
 		</div>
 	</body>

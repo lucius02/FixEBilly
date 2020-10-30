@@ -7,7 +7,6 @@
 	$wat = "";	
 	$why = "";
 	$how = "";
-	$niveau = "";
 
 	$queryCondition = "";
 	if(!empty($_POST["search"])) {
@@ -50,21 +49,7 @@
 			}
 		}
 	}
-
-	// $pdocrud = new PDOCrud();
-	// //add Filter ("unique-filter-name", "Filter display name", "column name to be matched","type of filter")
-	// $pdocrud->addFilter("product_cat_filter", "Product Category", "product_cat", "radio");
-	// //set data for filter ("unique-filter-name",array of data or table,key (if source=db),value (if source=db), "source_type") 
-	// $pdocrud->setFilterSource("product_cat_filter", array("Electronic" => "Electronic", "Fashion" => "Fashion"), "", "", "array");
 	
-	// $pdocrud->addFilter("ProductLineFilter", "Product Line", "product_line", "dropdown");
-	// $pdocrud->setFilterSource("ProductLineFilter", "products", "product_line", "product_line as pl", "db");
-	
-	// $pdocrud->addFilter("ProductVendorFilter", "Vendor", "ProductVendor", "text");
-	// $pdocrud->setFilterSource("ProductVendorFilter", "", "", "", "");
-	
-	// echo $pdocrud->dbTable("products")->render();
-
 	$orderby = " ORDER BY kenniskaart_id desc"; 
 	$sql = "SELECT * FROM sch_map.kenniskaart " . $queryCondition;
 	$href = 'index.php';					
@@ -100,14 +85,6 @@
 					<input type="text" id="mysearch" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
 					<input type="text" id="mysearch" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
 					<input type="text" id="mysearch" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
-					<div>
-						<select name="niveau[search_in]" id="search_in" class="demoInputBox">
-							<option value="">Select Column</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>beginner</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Gevorderde</option>
-							<option value="niveau" <?php if($niveau=="niveau") { echo "selected"; } ?>>Expert</option>
-						</select>
-					</div> 
 					<input type="submit" name="go" class="btnSearch" value="Search">
 					<input type="reset" class="btnSearch" value="Reset" onclick="window.location='index.php'">
 				</p>

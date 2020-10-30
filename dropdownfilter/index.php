@@ -27,11 +27,11 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT Country FROM tbl_user ORD
                 <button id="Filter">Search</button>
             </div>
             
-                <?php
+            <?php
                 if (! empty($_POST['country'])) {
-                    ?>
-                    <table cellpadding="10" cellspacing="1">
+            ?>
 
+            <table cellpadding="10" cellspacing="1">
                 <thead>
                     <tr>
                         <th><strong>Name</strong></th>
@@ -40,40 +40,39 @@ $countryResult = $db_handle->runQuery("SELECT DISTINCT Country FROM tbl_user ORD
                     </tr>
                 </thead>
                 <tbody>
-                <?php
-                    $query = "SELECT * from tbl_user";
-                    $i = 0;
-                    $selectedOptionCount = count($_POST['country']);
-                    $selectedOption = "";
-                    while ($i < $selectedOptionCount) {
-                        $selectedOption = $selectedOption . "'" . $_POST['country'][$i] . "'";
-                        if ($i < $selectedOptionCount - 1) {
-                            $selectedOption = $selectedOption . ", ";
+                    <?php
+                        $query = "SELECT * from tbl_user";
+                        $i = 0;
+                        $selectedOptionCount = count($_POST['country']);
+                        $selectedOption = "";
+                        while ($i < $selectedOptionCount) {
+                            $selectedOption = $selectedOption . "'" . $_POST['country'][$i] . "'";
+                            if ($i < $selectedOptionCount - 1) {
+                                $selectedOption = $selectedOption . ", ";
+                            }
+                            
+                            $i ++;
                         }
+                        $query = $query . " WHERE country in (" . $selectedOption . ")";
                         
-                        $i ++;
+                        $result = $db_handle->runQuery($query);
                     }
-                    $query = $query . " WHERE country in (" . $selectedOption . ")";
-                    
-                    $result = $db_handle->runQuery($query);
-                }
-                if (! empty($result)) {
-                    foreach ($result as $key => $value) {
-                        ?>
-                <tr>
+                    if (! empty($result)) {
+                        foreach ($result as $key => $value) {
+                    ?>
+                    <tr>
                         <td><div class="col" id="user_data_1"><?php echo $result[$key]['Name']; ?></div></td>
                         <td><div class="col" id="user_data_2"><?php echo $result[$key]['Gender']; ?> </div></td>
                         <td><div class="col" id="user_data_3"><?php echo $result[$key]['Country']; ?> </div></td>
                     </tr>
-                <?php
-                    }
-                    ?>
-                    
+                    <?php
+                        }
+                    ?>  
                 </tbody>
             </table>
             <?php
                 }
-                ?>  
+            ?>  
         </div>
     </form>
 </body>
