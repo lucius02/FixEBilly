@@ -75,12 +75,10 @@ class Connection {
 
 echo "stap1";
 
-$drivers = PDO::getAvailableDrivers ();
-    echo '<pre>' . print_r ($drivers, true) . '</pre>';
 // 
 if ( 
     isset($_POST['opslaan']) 
-    and $_POST['plaatje']['name'] <> '' and $_POST['rol'] <> '' and $_POST['onderwerp'] <> '' and $_POST['competentie'] <> '' and $_POST['wat'] <> '' and $_POST['why'] <> '' and $_POST['how'] <> ''  and $_POST['bronnen'] <> '' and $_POST['niveau'] <> '' and $_POST['studieduur'] <> '' and $_POST['rating'] <> ''
+    and $_POST['plaatje'] <> '' and $_POST['rol'] <> '' and $_POST['onderwerp'] <> '' and $_POST['competentie'] <> '' and $_POST['wat'] <> '' and $_POST['why'] <> '' and $_POST['how'] <> ''  and $_POST['bronnen'] <> '' and $_POST['niveau'] <> '' and $_POST['studieduur'] <> '' and $_POST['rating'] <> ''
     ) {
 
         echo "stap2";
@@ -111,7 +109,7 @@ if (
 try {
 	$pdo = Connection::get()->connect();
     // 
-    $sql_insert_naam = "INSERT INTO sch_map.kenniskaart(onderwerp, rol, competentie, wat, why, how, plaatje, bronnen, niveau, studieduur, rating) VALUES ('$_POST[onderwerp]', '$rol', '$competentie', '$_POST[wat]', '$_POST[why]', '$_POST[how]', '$image', '$_POST[bronnen]', '$chk', '$_POST[studieduur]', '$_POST[rating]')";
+    $sql_insert_naam = "INSERT INTO sch_map.kenniskaart(onderwerp, rol, competentie, wat, why, how, plaatje, bronnen, niveau, studieduur, rating) VALUES ('$_POST[onderwerp]', '$rol', '$competentie', '$_POST[wat]', '$_POST[why]', '$_POST[how]', '$_POST[plaatje]', '$_POST[bronnen]', '$chk', '$_POST[studieduur]', '$_POST[rating]')";
     
     $stmt = $pdo->query($sql_insert_naam);
 

@@ -17,7 +17,7 @@ $json=json_encode($array,true);
 var_dump($json);
 
 //create file if not exists
-$fo=fopen("data1.json","w");
+$fo=fopen("data2.json","w");
 
 //write the json string in file
 $fr=fwrite($fo,$json);
