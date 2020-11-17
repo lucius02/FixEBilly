@@ -3,13 +3,23 @@ include("ini/classes.php");
 //require_once(".\search\dbcontroller.php");
 //$db_handle = new DBController();
 
-
 $onderwerp = "";
 $wat = "";	
 $why = "";
 $how = "";
 $niveau = "";
 
+/*
+Gebruik ~* ipv LIKE, omdat deze functie:
+a. Veel sneller is,
+b. Caseinsensitive zoekt, dus hoofdletters zijn niet belangrijk
+
+Je ziet dat je het hele stuk php-case kan weglaten hiermee, wat de code lekker kort en overzichtelijk houdt.
+Net als LIKE kan ~* alleen bij zoek op argumenten van het type text en bijvoorbeeld niet op integer, daarom convert ik de laatste (niveau) voor de zekerheid naar text. Dit heeft wel als bijwerking dat als je zoekt op niveau 1 je ook niveau 10,11,12,etc tergu krijgt, omdat daar ook een 1 in zit. Soms is dat juist handig, soms juist niet. Dan moet je hem anders schrijven "AND niveau = COALESCE(".$niveau.",niveau)"
+
+*/
+
+//if(!empty($_POST["search"])) {
 if(isset($_POST['Search']) 
 	//er moet wel ergens op gezocht worden....
 	and !(empty($_POST["onderwerp"]) and empty($_POST["wat"]) and empty($_POST["why"]) and empty($_POST["how"]) and empty($_POST['niveau']))) {
@@ -48,10 +58,9 @@ if(isset($_POST['Search'])
                             foreach ($comboresult as $k => $v) {
                                 echo '<option value="' . $comboresult[$k]['niveau'] . '">' . $comboresult[$k]['niveau'] . '</option>';
                             }
-					  }
-					  
-?>
+                      }
 
+	$htmlcode ='
 <html>
 	<head>
 		<title>Zoeken</title>
@@ -63,19 +72,24 @@ if(isset($_POST['Search'])
 			<form name="frmSearch" method="post" action="filterfunction.php">
 			<div class="search-box">
 				<p>
-					<input type="text" id="mysearch" placeholder="onderwerp" name="search[onderwerp]" class="demoInputBox" value="<?php echo $onderwerp; ?>"/>
-					<input type="text" id="mysearch" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
-					<input type="text" id="mysearch" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
-					<input type="text" id="mysearch" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
-					<select id="Place" name="search[niveau]" multiple="multiple">
-                        
-						<?php
-							//echo display_sql_table($query,400);
-						?>			
-			</select><br> <br>
+					<input type="text" id="onderwerp" placeholder="onderwerp" name="onderwerp" class="demoInputBox" value="<?php echo $onderwerp; ?>"/>
+					<input type="text" id="wat" placeholder="wat" name="wat" class="demoInputBox" value="<?php echo $wat; ?>"/>
+					<input type="text" id="why" placeholder="why" name="why" class="demoInputBox" value="<?php echo $why; ?>"/>
+					<input type="text" id="how" placeholder="how" name="how" class="demoInputBox" value="<?php echo $how; ?>"/>
+					<select id="Place" id="niveau" name="niveau[]" multiple="multiple" SIZE="5">
+				</p>
+			</div>
+	'
+?>
 
-			<input type="submit" name="Search" id="Search" value="Search">
-			<input type="reset" class="btnSearch" value="Reset" onclick="window.location='filterfunction.php'">
+ <?php
+//echo display_sql_table($query,400);
+ ?>
+  </select><br> <br>
+
+
+					<input type="submit" name="Search" id="Search" value="Search">
+					<input type="reset" class="btnSearch" value="Reset" onclick="window.location='filterfunction2.php'">
 
 			<table cellpadding="10" cellspacing="1">
 				<thead>
@@ -93,32 +107,32 @@ if(isset($_POST['Search'])
 						<th><strong>Rating</strong></th>
 					</tr>
 				</thead>
-					<tbody>
-						<?php
-						if (! empty($result)) {
-						foreach ($result as $k => $v) {
-								if(is_numeric($k)) {
-						?>
-						<tr>
-							<td><?php echo $result[$k]["onderwerp"]; ?></td>
-							<td><?php echo $result[$k]["rol"]; ?></td>
-							<td><?php echo $result[$k]["competentie"]; ?></td>
-							<td><?php echo $result[$k]["wat"]; ?></td>
-							<td><?php echo $result[$k]["why"]; ?></td>
-							<td><?php echo $result[$k]["how"]; ?></td>
-							<td><img src='<?php echo $result[$k]["plaatje"]; ?>' ></td> 
-							<td><?php echo $result[$k]["bronnen"]; ?></td>
-							<td><?php echo $result[$k]["niveau"]; ?></td>
-							<td><?php echo $result[$k]["studieduur"]; ?></td>
-							<td><?php echo $result[$k]["rating"]; ?></td>
-						</tr>
-						<?php	
-							}				   
-						}
-						}	
-						?>
-					<tbody>
-				</table>
+				<tbody>
+			<?php
+                    if (! empty($result)) {
+                    foreach ($result as $k => $v) {
+							if(is_numeric($k)) {
+			?>
+					<tr>
+						<td><?php echo $result[$k]["onderwerp"]; ?></td>
+						<td><?php echo $result[$k]["rol"]; ?></td>
+						<td><?php echo $result[$k]["competentie"]; ?></td>
+						<td><?php echo $result[$k]["wat"]; ?></td>
+						<td><?php echo $result[$k]["why"]; ?></td>
+						<td><?php echo $result[$k]["how"]; ?></td>
+						<td><img src='<?php echo $result[$k]["plaatje"]; ?>' ></td> 
+						<td><?php echo $result[$k]["bronnen"]; ?></td>
+						<td><?php echo $result[$k]["niveau"]; ?></td>
+						<td><?php echo $result[$k]["studieduur"]; ?></td>
+						<td><?php echo $result[$k]["rating"]; ?></td>
+					</tr>
+			<?php	
+						}				   
+                    }
+				}	
+			?>
+				<tbody>
+			</table>
 			</form>	
 		</div>
 	</body>
