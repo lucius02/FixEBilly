@@ -36,9 +36,11 @@ if(isset($_POST['Search'])
 				AND	how ~* '".$how."'
 				AND	niveau ~* '".$niveau."'
 			ORDER BY kenniskaart_id desc";
+
 //echo $query;
 //	$result = $db_handle->runQuery($query);
 	$result=Connection::get()->connect()->query($query)->fetchAll(PDO::FETCH_ASSOC);
+
 }
 
 // ter voorbereiding van de opbouw van de combobox..
@@ -67,7 +69,7 @@ if(isset($_POST['Search'])
 					<input type="text" id="mysearch" placeholder="wat" name="search[wat]" class="demoInputBox" value="<?php echo $wat; ?>"/>
 					<input type="text" id="mysearch" placeholder="why" name="search[why]" class="demoInputBox" value="<?php echo $why; ?>"/>
 					<input type="text" id="mysearch" placeholder="how" name="search[how]" class="demoInputBox" value="<?php echo $how; ?>"/>
-					<select id="Place" name="search[niveau]" multiple="multiple">
+					<select id="Place" name="search[niveau]" multiple="multiple" SIZE="5">
                         
 						<?php
 							//echo display_sql_table($query,400);
