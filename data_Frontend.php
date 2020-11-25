@@ -104,6 +104,17 @@ if (
       $competentie .= $competentie1.",";  
    } 
 
+//    $_POST['plaatje'] = "";
+//    $_POST['onderwerp'] = '';
+//    $_POST['wat'] = '';
+//    $_POST['why'] = '';
+//    $_POST['how'] = '';
+//    $_POST['bronnen'] = '';
+//    $_POST['studieduur'] = '';
+//    $_POST['rating'] = '';
+//    $niveau = '';
+//    $rol = '';
+//    $competentie ='';
   }
 
 try {
