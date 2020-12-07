@@ -43,6 +43,7 @@ class Product{
     
         return $stmt;
     }
+    
     // create product
     function create(){
     
