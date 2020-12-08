@@ -33,25 +33,25 @@ if($num>0){
         // this will make $row['name'] to
         // just $name only
         extract($row);
-  
+
         $product_item=array(
-            "kenniskaart_id" =>  $product->kenniskaart_id,
-            "onderwerp" => $product->onderwerp,
-            "wat" => $product->wat,
-            "why" => $product->why,
-            "how" => $product->how,
-            "plaatje" => $product->plaatje,
-            "niveau" => $product->niveau,
-            "rol" => $product->rol,
-            "competentie" => $product->competentie,
-            "studieduur" => $product->studieduur,
-            "rating" => $product->rating,
-            "bronnen" => $product->bronnen
+            "kenniskaart_id" =>  $kenniskaart_id,
+            "onderwerp" => $onderwerp,
+            "wat" => $wat,
+            "why" => $why,
+            "how" => $how,
+            "plaatje" => $plaatje,
+            "niveau" => $niveau,
+            "rol" => $rol,
+            "competentie" => $competentie,
+            "studieduur" => $studieduur,
+            "rating" => $rating,
+            "bronnen" => $bronnen
         );
   
         array_push($products_arr["records"], $product_item);
     }
-  
+    
     // set response code - 200 OK
     http_response_code(200);
   

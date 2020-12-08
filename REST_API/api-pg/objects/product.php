@@ -29,18 +29,18 @@ class Product{
     
         // select all query
         $query = "SELECT
-                    kenniskaart_id, onderwerp, wat, why, how, plaatje, niveau, rol, competentie, studieduur, rating, bronnen
+                    *
                 FROM
                     ". $this->table_name . " 
                 ORDER BY
                     onderwerp DESC";
-    
+
         // prepare query statement
         $stmt = $this->conn->prepare($query);
     
         // execute query
         $stmt->execute();
-    
+
         return $stmt;
     }
     
@@ -95,7 +95,7 @@ class Product{
     
         // query to read single record
         $query =    "SELECT
-                        kenniskaart_id, onderwerp, wat, why, how, plaatje, niveau, rol, competentie, studieduur, rating, bronnen
+                        *
                     FROM
                         ". $this->table_name . " 
                     WHERE 
@@ -216,7 +216,7 @@ class Product{
     
         // select all query
         $query = "SELECT
-                    kenniskaart_id, onderwerp, wat, why, how, plaatje, niveau, rol, competentie, studieduur, rating, bronnen
+                    *
                 FROM
                     " . $this->table_name . "
                 WHERE
@@ -247,7 +247,7 @@ class Product{
     
         // select query
         $query = "SELECT
-                    kenniskaart_id, onderwerp, wat, why, how, plaatje, niveau, rol, competentie, studieduur, rating, bronnen
+                    *
                 FROM
                     " . $this->table_name . " 
                 ORDER BY onderwerp DESC
