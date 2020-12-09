@@ -23,7 +23,6 @@ if($num>0){
   
     // products array
     $products_arr=array();
-    $products_arr["records"]=array();
   
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -48,8 +47,8 @@ if($num>0){
             "rating" => $rating,
             "bronnen" => $bronnen
         );
-  
-        array_push($products_arr["records"], $product_item);
+ 
+        array_push($products_arr, $product_item);
     }
     
     // set response code - 200 OK
